@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
 [ext_resource path="res://caster.png" type="Texture" id=2]
@@ -7,23 +7,17 @@
 [ext_resource path="res://Label.gd" type="Script" id=5]
 [ext_resource path="res://shadow_caster.tscn" type="PackedScene" id=6]
 [ext_resource path="res://spot.png" type="Texture" id=7]
+[ext_resource path="res://bg.gd" type="Script" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
-
-custom_solver_bias = 0.0
 extents = Vector2( 12, 12 )
 
-[sub_resource type="CanvasItemMaterial" id=4]
-
-render_priority = 0
+[sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
-light_mode = 0
 
-[sub_resource type="Animation" id=5]
-
+[sub_resource type="Animation" id=3]
 length = 16.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -37,11 +31,9 @@ tracks/0/keys = {
 "values": [ Vector2( 159.289, 452.441 ), Vector2( 132.279, 80.4366 ), Vector2( 700.722, 241.27 ), Vector2( 429.392, 571.532 ) ]
 }
 
-[sub_resource type="Animation" id=6]
-
+[sub_resource type="Animation" id=4]
 length = 16.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -55,23 +47,15 @@ tracks/0/keys = {
 "values": [ Vector2( 753.756, 314.336 ), Vector2( 69.7562, 234.336 ), Vector2( 256.756, 575.336 ), Vector2( 516.756, 530.336 ) ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=7]
-
-render_priority = 0
+[sub_resource type="CanvasItemMaterial" id=5]
 blend_mode = 1
-light_mode = 0
 
-[sub_resource type="CanvasItemMaterial" id=8]
-
-render_priority = 0
+[sub_resource type="CanvasItemMaterial" id=6]
 blend_mode = 1
-light_mode = 0
 
-[sub_resource type="Animation" id=9]
-
+[sub_resource type="Animation" id=7]
 length = 16.0
 loop = true
-step = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
@@ -85,326 +69,168 @@ tracks/0/keys = {
 "values": [ Vector2( 692.078, 29.8849 ), Vector2( 309.606, 31.5551 ), Vector2( 40.7064, 238.658 ), Vector2( 685.397, 282.082 ) ]
 }
 
-[node name="base" type="Node2D" index="0"]
+[node name="base" type="Node2D"]
 
-[node name="player" type="Node2D" parent="." index="0"]
+[node name="player" type="Node2D" parent="."]
 
-position = Vector2( 159.289, 452.441 )
-rotation = 0.785398
-scale = Vector2( 0.25, 0.25 )
-_sections_unfolded = [ "Material", "Pause", "Transform" ]
-
-[node name="RigidBody2D" type="RigidBody2D" parent="player" index="0"]
-
-input_pickable = false
-collision_layer = 1
-collision_mask = 1
-mode = 2
-mass = 1.0
-friction = 0.0
-bounce = 0.0
-gravity_scale = 0.0
-custom_integrator = false
-continuous_cd = 0
-contacts_reported = 0
-contact_monitor = false
-sleeping = false
-can_sleep = true
-linear_velocity = Vector2( 0, 0 )
-linear_damp = -1.0
-angular_velocity = 0.0
-angular_damp = -1.0
+[node name="KinematicBody2D" type="KinematicBody2D" parent="player"]
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform" ]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="player/RigidBody2D" index="0"]
-
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player/KinematicBody2D"]
+scale = Vector2( 0.3, 0.3 )
 shape = SubResource( 1 )
-_sections_unfolded = [ "Material", "Transform" ]
 
-[node name="player_sprite" type="Sprite" parent="player/RigidBody2D" index="1"]
-
-scale = Vector2( 0.5, 0.5 )
+[node name="player_sprite" type="Sprite" parent="player/KinematicBody2D"]
+rotation = 0.785398
+scale = Vector2( 0.375, 0.378 )
 z_index = 1
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Pause", "Transform", "Visibility", "Z Index" ]
 
-[node name="Light2D" type="Light2D" parent="player/RigidBody2D/player_sprite" index="0"]
-
-enabled = true
-editor_only = false
+[node name="Light2D" type="Light2D" parent="player/KinematicBody2D/player_sprite"]
 texture = ExtResource( 3 )
-offset = Vector2( 0, 0 )
-texture_scale = 0.1
-color = Color( 0.460571, 0.508236, 0.765625, 1 )
-energy = 1.0
+texture_scale = 0.01
+color = Color( 0.458824, 0.509804, 0.764706, 1 )
+energy = 8.97
 mode = 1
-range_height = 0.0
-range_z_min = -1024
-range_z_max = 1024
-range_layer_min = 0
-range_layer_max = 0
-range_item_cull_mask = 1
-shadow_enabled = false
-shadow_color = Color( 0, 0, 0, 0 )
-shadow_buffer_size = 2048
-shadow_gradient_length = 0.0
-shadow_filter = 0
-shadow_filter_smooth = 0.0
-shadow_item_cull_mask = 1
-_sections_unfolded = [ "Transform" ]
 
-[node name="ambient" type="CanvasModulate" parent="." index="1"]
-
+[node name="ambient" type="CanvasModulate" parent="."]
 color = Color( 0.27451, 0.27451, 0.27451, 1 )
 
-[node name="bg" type="Sprite" parent="." index="2"]
-
-position = Vector2( 401.251, 301.906 )
-scale = Vector2( 6.39454, 4.82665 )
+[node name="bg" type="Sprite" parent="."]
 texture = ExtResource( 4 )
+script = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="." index="3"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_right = 117.0
-margin_bottom = 26.0
-rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-text = "Detected:"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-script = ExtResource( 5 )
-_sections_unfolded = [ "Focus", "Material", "Mouse", "Pause", "Rect", "Visibility", "custom_colors" ]
-
-[node name="casters" type="Node2D" parent="." index="4"]
-
-[node name="shadow_caster" parent="casters" index="0" instance=ExtResource( 6 )]
-
-position = Vector2( 120, 180 )
-
-[node name="shadow_caster15" parent="casters" index="1" instance=ExtResource( 6 )]
-
-position = Vector2( 234, 43 )
-
-[node name="shadow_caster16" parent="casters" index="2" instance=ExtResource( 6 )]
-
-position = Vector2( 344, 205 )
-
-[node name="shadow_caster17" parent="casters" index="3" instance=ExtResource( 6 )]
-
-position = Vector2( 204, 315 )
-
-[node name="shadow_caster18" parent="casters" index="4" instance=ExtResource( 6 )]
-
-position = Vector2( 84, 405 )
-
-[node name="shadow_caster19" parent="casters" index="5" instance=ExtResource( 6 )]
-
-position = Vector2( 144, 555 )
-
-[node name="shadow_caster20" parent="casters" index="6" instance=ExtResource( 6 )]
-
-position = Vector2( 394, 495 )
-
-[node name="shadow_caster21" parent="casters" index="7" instance=ExtResource( 6 )]
-
-position = Vector2( 414, 355 )
-
-[node name="shadow_caster22" parent="casters" index="8" instance=ExtResource( 6 )]
-
-position = Vector2( 464, 105 )
-
-[node name="shadow_caster23" parent="casters" index="9" instance=ExtResource( 6 )]
-
-position = Vector2( 624, 85 )
-
-[node name="shadow_caster24" parent="casters" index="10" instance=ExtResource( 6 )]
-
-position = Vector2( 764, 45 )
-
-[node name="shadow_caster25" parent="casters" index="11" instance=ExtResource( 6 )]
-
-position = Vector2( 764, 245 )
-
-[node name="shadow_caster26" parent="casters" index="12" instance=ExtResource( 6 )]
-
-position = Vector2( 734, 555 )
-
-[node name="shadow_caster27" parent="casters" index="13" instance=ExtResource( 6 )]
-
-position = Vector2( 564, 565 )
-
-[node name="shadow_caster28" parent="casters" index="14" instance=ExtResource( 6 )]
-
-position = Vector2( 664, 365 )
-
-[node name="lights" type="Node2D" parent="." index="5"]
-
-[node name="red_light" type="Light2D" parent="lights" index="0"]
-
-position = Vector2( 308.289, 410.441 )
-enabled = true
-editor_only = false
-texture = ExtResource( 3 )
-offset = Vector2( 0, 0 )
-texture_scale = 1.0
-color = Color( 1, 0.446392, 0.0576646, 1 )
-energy = 1.0
-mode = 0
-range_height = 0.0
-range_z_min = -1024
-range_z_max = 1024
-range_layer_min = 0
-range_layer_max = 0
-range_item_cull_mask = 1
-shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 0 )
-shadow_buffer_size = 2048
-shadow_gradient_length = 1.3
-shadow_filter = 3
-shadow_filter_smooth = 11.1
-shadow_item_cull_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="blob" type="Sprite" parent="lights/red_light" index="0"]
-
-material = SubResource( 4 )
-texture = ExtResource( 7 )
-
-[node name="anim" type="AnimationPlayer" parent="lights/red_light" index="1"]
-
-root_node = NodePath("..")
-autoplay = "motion"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/motion = SubResource( 5 )
-anims/motion2 = SubResource( 6 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
-
-[node name="green_light" type="Light2D" parent="lights" index="1"]
-
-position = Vector2( 753.756, 314.336 )
-enabled = true
-editor_only = false
-texture = ExtResource( 3 )
-offset = Vector2( 0, 0 )
-texture_scale = 1.0
-color = Color( 0.49247, 0.878537, 0.409146, 1 )
-energy = 1.0
-mode = 0
-range_height = 0.0
-range_z_min = -1024
-range_z_max = 1024
-range_layer_min = 0
-range_layer_max = 0
-range_item_cull_mask = 1
-shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 0 )
-shadow_buffer_size = 2048
-shadow_gradient_length = 1.2
-shadow_filter = 3
-shadow_filter_smooth = 7.1
-shadow_item_cull_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="blob" type="Sprite" parent="lights/green_light" index="0"]
-
-material = SubResource( 7 )
-texture = ExtResource( 7 )
-
-[node name="anim" type="AnimationPlayer" parent="lights/green_light" index="1"]
-
-root_node = NodePath("..")
-autoplay = "m2"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/m2 = SubResource( 6 )
-anims/motion = SubResource( 5 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
-
-[node name="blue_light" type="Light2D" parent="lights" index="2"]
-
-position = Vector2( 566.921, 203.413 )
-enabled = true
-editor_only = false
-texture = ExtResource( 3 )
-offset = Vector2( 0, 0 )
-texture_scale = 1.0
-color = Color( 0.396752, 0.446392, 0.929792, 1 )
-energy = 1.0
-mode = 0
-range_height = 0.0
-range_z_min = -1024
-range_z_max = 1024
-range_layer_min = 0
-range_layer_max = 0
-range_item_cull_mask = 1
-shadow_enabled = true
-shadow_color = Color( 0, 0, 0, 0 )
-shadow_buffer_size = 2048
-shadow_gradient_length = 1.4
-shadow_filter = 3
-shadow_filter_smooth = 5.3
-shadow_item_cull_mask = 1
-_sections_unfolded = [ "Transform" ]
-
-[node name="blob" type="Sprite" parent="lights/blue_light" index="0"]
-
-material = SubResource( 8 )
-texture = ExtResource( 7 )
-
-[node name="anim" type="AnimationPlayer" parent="lights/blue_light" index="1"]
-
-root_node = NodePath("..")
-autoplay = "motion3"
-playback_process_mode = 1
-playback_default_blend_time = 0.0
-playback_speed = 1.0
-anims/motion = SubResource( 5 )
-anims/motion2 = SubResource( 6 )
-anims/motion3 = SubResource( 9 )
-blend_times = [  ]
-_sections_unfolded = [ "Playback Options" ]
-
-[node name="ProgressBar" type="ProgressBar" parent="." index="6"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="ProgressBar" type="ProgressBar" parent="."]
 margin_left = 132.0
 margin_top = 6.0
 margin_right = 369.0
 margin_bottom = 22.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 0
-min_value = 0.0
-max_value = 100.0
 step = 0.1
-page = 0.0
-value = 0.0
-exp_edit = false
-rounded = false
-percent_visible = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
+[node name="Label" type="Label" parent="."]
+margin_right = 117.0
+margin_bottom = 26.0
+rect_scale = Vector2( 2, 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "Detected:"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
+[node name="casters" type="Node2D" parent="."]
+
+[node name="shadow_caster" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 120, 180 )
+
+[node name="shadow_caster15" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 234, 43 )
+scale = Vector2( 1, 1.106 )
+
+[node name="shadow_caster16" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 344, 205 )
+
+[node name="shadow_caster17" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 204, 315 )
+
+[node name="shadow_caster18" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 84, 405 )
+
+[node name="shadow_caster19" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 103.227, 555 )
+scale = Vector2( 5.105, 1.045 )
+
+[node name="shadow_caster20" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 394, 495 )
+
+[node name="shadow_caster21" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 414, 355 )
+
+[node name="shadow_caster22" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 464, 105 )
+scale = Vector2( 3.051, 1 )
+
+[node name="shadow_caster23" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 624, 85 )
+scale = Vector2( 0.942, 3.67 )
+
+[node name="shadow_caster24" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 764, 45 )
+scale = Vector2( 0.998, 3.914 )
+
+[node name="shadow_caster25" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 764, 245 )
+scale = Vector2( 3.246, 1 )
+
+[node name="shadow_caster26" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 734, 555 )
+scale = Vector2( 1, 3.916 )
+
+[node name="shadow_caster27" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 564, 565 )
+scale = Vector2( 1, 3 )
+
+[node name="shadow_caster28" parent="casters" instance=ExtResource( 6 )]
+position = Vector2( 664, 365 )
+scale = Vector2( 2.218, 1 )
+
+[node name="lights" type="Node2D" parent="."]
+
+[node name="red_light" type="Light2D" parent="lights"]
+position = Vector2( 308.289, 410.441 )
+texture = ExtResource( 3 )
+color = Color( 1, 0.446392, 0.0576646, 1 )
+shadow_enabled = true
+shadow_gradient_length = 1.3
+shadow_filter = 3
+shadow_filter_smooth = 11.1
+
+[node name="blob" type="Sprite" parent="lights/red_light"]
+material = SubResource( 2 )
+texture = ExtResource( 7 )
+
+[node name="anim" type="AnimationPlayer" parent="lights/red_light"]
+autoplay = "motion"
+anims/motion = SubResource( 3 )
+anims/motion2 = SubResource( 4 )
+
+[node name="green_light" type="Light2D" parent="lights"]
+position = Vector2( 753.756, 314.336 )
+texture = ExtResource( 3 )
+color = Color( 0.49247, 0.878537, 0.409146, 1 )
+shadow_enabled = true
+shadow_gradient_length = 1.2
+shadow_filter = 3
+shadow_filter_smooth = 7.1
+
+[node name="blob" type="Sprite" parent="lights/green_light"]
+material = SubResource( 5 )
+texture = ExtResource( 7 )
+
+[node name="anim" type="AnimationPlayer" parent="lights/green_light"]
+autoplay = "m2"
+anims/m2 = SubResource( 4 )
+anims/motion = SubResource( 3 )
+
+[node name="blue_light" type="Light2D" parent="lights"]
+position = Vector2( 566.921, 203.413 )
+texture = ExtResource( 3 )
+color = Color( 0.396752, 0.446392, 0.929792, 1 )
+shadow_enabled = true
+shadow_gradient_length = 1.4
+shadow_filter = 3
+shadow_filter_smooth = 5.3
+
+[node name="blob" type="Sprite" parent="lights/blue_light"]
+material = SubResource( 6 )
+texture = ExtResource( 7 )
+
+[node name="anim" type="AnimationPlayer" parent="lights/blue_light"]
+autoplay = "motion3"
+anims/motion = SubResource( 3 )
+anims/motion2 = SubResource( 4 )
+anims/motion3 = SubResource( 7 )
